@@ -1,0 +1,1987 @@
+[
+    {
+        "id": "377856fa.64711a",
+        "type": "subflow",
+        "name": "Iterate",
+        "in": [
+            {
+                "x": 220,
+                "y": 219,
+                "wires": [
+                    {
+                        "id": "9aae9ea2.18832"
+                    }
+                ]
+            }
+        ],
+        "out": [
+            {
+                "x": 454,
+                "y": 174,
+                "wires": [
+                    {
+                        "id": "9aae9ea2.18832",
+                        "port": 0
+                    }
+                ]
+            },
+            {
+                "x": 455,
+                "y": 259,
+                "wires": [
+                    {
+                        "id": "9aae9ea2.18832",
+                        "port": 1
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "id": "9aae9ea2.18832",
+        "type": "function",
+        "z": "377856fa.64711a",
+        "name": "Iterate",
+        "func": "//Node has 2 outputs - 1 for itteration and 1 for completion\nvar nextObj, out;\nvar itt = msg.iterationInfo;\n\n\n//If the iterating has not yet begun set up the iteration metadata in the msg\nif (typeof itt === 'undefined') {\n    //Make sure payload is an array\n    if( Object.prototype.toString.call(msg.payload) !== '[object Array]' ) {\n       msg.payload = [msg.payload];\n    }\n\n    msg.iterationInfo = itt = {};\n    itt.index = -1;\n    itt.inArray = msg.payload;\n    itt.outArray = [];\n\n//Otherwise just push the input to the output array\n} else {\n    itt.outArray.push(msg.payload)\n}\n\n//Goto next object\nitt.index ++;\n\n//If there are stil objects left to iterate goto the next one in the original array\nif (itt.index < itt.inArray.length) {\n    nextObj = msg;\n    msg.payload = itt.inArray[itt.index];\n\n//otherwise pass the out array as the payload\n} else {\n    out = msg;\n    msg.payload = itt.outArray;\n    delete msg.iterationInfo;\n}\n\nreturn [nextObj, out];",
+        "outputs": "2",
+        "noerr": 0,
+        "x": 347,
+        "y": 220,
+        "wires": [
+            [],
+            []
+        ]
+    },
+    {
+        "id": "624a21dad70cbf71",
+        "type": "ui_led",
+        "z": "5215a53f3ed2c38c",
+        "order": 5,
+        "group": "6f3adc65bce5910a",
+        "width": "3",
+        "height": "1",
+        "label": "1F15",
+        "labelPlacement": "left",
+        "labelAlignment": "left",
+        "colorForValue": [
+            {
+                "color": "#008000",
+                "value": "true",
+                "valueType": "bool"
+            },
+            {
+                "color": "#ff0000",
+                "value": "false",
+                "valueType": "bool"
+            }
+        ],
+        "allowColorForValueInMessage": false,
+        "shape": "square",
+        "showGlow": true,
+        "name": "",
+        "x": 1090,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "a6b58916f53f7cc4",
+        "type": "ui_led",
+        "z": "5215a53f3ed2c38c",
+        "order": 6,
+        "group": "6f3adc65bce5910a",
+        "width": "3",
+        "height": "1",
+        "label": "1F1S",
+        "labelPlacement": "left",
+        "labelAlignment": "left",
+        "colorForValue": [
+            {
+                "color": "#008000",
+                "value": "true",
+                "valueType": "bool"
+            },
+            {
+                "color": "#ff0000",
+                "value": "false",
+                "valueType": "bool"
+            }
+        ],
+        "allowColorForValueInMessage": false,
+        "shape": "square",
+        "showGlow": true,
+        "name": "",
+        "x": 1090,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "36e9868ef8654ddf",
+        "type": "ui_led",
+        "z": "5215a53f3ed2c38c",
+        "order": 3,
+        "group": "6f3adc65bce5910a",
+        "width": "3",
+        "height": "1",
+        "label": "1F13",
+        "labelPlacement": "left",
+        "labelAlignment": "left",
+        "colorForValue": [
+            {
+                "color": "#008000",
+                "value": "true",
+                "valueType": "bool"
+            },
+            {
+                "color": "#ff0000",
+                "value": "false",
+                "valueType": "bool"
+            }
+        ],
+        "allowColorForValueInMessage": false,
+        "shape": "square",
+        "showGlow": true,
+        "name": "",
+        "x": 1090,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "666c76e16a3735d6",
+        "type": "ui_led",
+        "z": "5215a53f3ed2c38c",
+        "order": 4,
+        "group": "6f3adc65bce5910a",
+        "width": "3",
+        "height": "1",
+        "label": "1F14",
+        "labelPlacement": "left",
+        "labelAlignment": "left",
+        "colorForValue": [
+            {
+                "color": "#008000",
+                "value": "true",
+                "valueType": "bool"
+            },
+            {
+                "color": "#ff0000",
+                "value": "false",
+                "valueType": "bool"
+            }
+        ],
+        "allowColorForValueInMessage": false,
+        "shape": "square",
+        "showGlow": true,
+        "name": "",
+        "x": 1090,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "1502b6d601ac2f39",
+        "type": "ui_led",
+        "z": "5215a53f3ed2c38c",
+        "order": 2,
+        "group": "6f3adc65bce5910a",
+        "width": "3",
+        "height": "1",
+        "label": "1F12",
+        "labelPlacement": "left",
+        "labelAlignment": "left",
+        "colorForValue": [
+            {
+                "color": "#008000",
+                "value": "true",
+                "valueType": "bool"
+            },
+            {
+                "color": "#ff0000",
+                "value": "false",
+                "valueType": "bool"
+            }
+        ],
+        "allowColorForValueInMessage": false,
+        "shape": "square",
+        "showGlow": true,
+        "name": "",
+        "x": 1090,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "436bce30d8f511af",
+        "type": "ui_led",
+        "z": "5215a53f3ed2c38c",
+        "order": 5,
+        "group": "88079e3ea8537594",
+        "width": 0,
+        "height": 0,
+        "label": "2F5S",
+        "labelPlacement": "left",
+        "labelAlignment": "left",
+        "colorForValue": [
+            {
+                "color": "#ff0000",
+                "value": "false",
+                "valueType": "bool"
+            },
+            {
+                "color": "#008000",
+                "value": "true",
+                "valueType": "bool"
+            }
+        ],
+        "allowColorForValueInMessage": false,
+        "shape": "square",
+        "showGlow": true,
+        "name": "",
+        "x": 1090,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "b725dbb35f9e62c7",
+        "type": "ui_led",
+        "z": "5215a53f3ed2c38c",
+        "order": 6,
+        "group": "88079e3ea8537594",
+        "width": 0,
+        "height": 0,
+        "label": "2F6S",
+        "labelPlacement": "left",
+        "labelAlignment": "left",
+        "colorForValue": [
+            {
+                "color": "#ff0000",
+                "value": "false",
+                "valueType": "bool"
+            },
+            {
+                "color": "#008000",
+                "value": "true",
+                "valueType": "bool"
+            }
+        ],
+        "allowColorForValueInMessage": false,
+        "shape": "square",
+        "showGlow": true,
+        "name": "",
+        "x": 1090,
+        "y": 500,
+        "wires": []
+    },
+    {
+        "id": "bf838b5e768d7ea4",
+        "type": "ui_led",
+        "z": "5215a53f3ed2c38c",
+        "order": 4,
+        "group": "88079e3ea8537594",
+        "width": 0,
+        "height": 0,
+        "label": "2F3S",
+        "labelPlacement": "left",
+        "labelAlignment": "left",
+        "colorForValue": [
+            {
+                "color": "#ff0000",
+                "value": "false",
+                "valueType": "bool"
+            },
+            {
+                "color": "#008000",
+                "value": "true",
+                "valueType": "bool"
+            }
+        ],
+        "allowColorForValueInMessage": false,
+        "shape": "square",
+        "showGlow": true,
+        "name": "",
+        "x": 1090,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "f278377c2b4ec742",
+        "type": "ui_led",
+        "z": "5215a53f3ed2c38c",
+        "order": 3,
+        "group": "88079e3ea8537594",
+        "width": 0,
+        "height": 0,
+        "label": "2F4S",
+        "labelPlacement": "left",
+        "labelAlignment": "left",
+        "colorForValue": [
+            {
+                "color": "#ff0000",
+                "value": "false",
+                "valueType": "bool"
+            },
+            {
+                "color": "#008000",
+                "value": "true",
+                "valueType": "bool"
+            }
+        ],
+        "allowColorForValueInMessage": false,
+        "shape": "square",
+        "showGlow": true,
+        "name": "",
+        "x": 1090,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "87c48be5d2229301",
+        "type": "ui_led",
+        "z": "5215a53f3ed2c38c",
+        "order": 1,
+        "group": "88079e3ea8537594",
+        "width": 0,
+        "height": 0,
+        "label": "2F1S",
+        "labelPlacement": "left",
+        "labelAlignment": "left",
+        "colorForValue": [
+            {
+                "color": "#ff0000",
+                "value": "false",
+                "valueType": "bool"
+            },
+            {
+                "color": "#008000",
+                "value": "true",
+                "valueType": "bool"
+            }
+        ],
+        "allowColorForValueInMessage": false,
+        "shape": "square",
+        "showGlow": true,
+        "name": "",
+        "x": 1090,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "0221c3c4a1837266",
+        "type": "ui_led",
+        "z": "5215a53f3ed2c38c",
+        "order": 2,
+        "group": "88079e3ea8537594",
+        "width": 0,
+        "height": 0,
+        "label": "2F2S",
+        "labelPlacement": "left",
+        "labelAlignment": "left",
+        "colorForValue": [
+            {
+                "color": "#ff0000",
+                "value": "false",
+                "valueType": "bool"
+            },
+            {
+                "color": "#008000",
+                "value": "true",
+                "valueType": "bool"
+            }
+        ],
+        "allowColorForValueInMessage": false,
+        "shape": "square",
+        "showGlow": true,
+        "name": "",
+        "x": 1090,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "987c8a9d9cd451a6",
+        "type": "ui_switch",
+        "z": "5215a53f3ed2c38c",
+        "name": "",
+        "label": "1층 전등",
+        "tooltip": "",
+        "group": "ac33bc3d5f3026ee",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "decouple": "false",
+        "topic": "topic",
+        "topicType": "msg",
+        "style": "",
+        "onvalue": "true",
+        "onvalueType": "bool",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "false",
+        "offvalueType": "bool",
+        "officon": "",
+        "offcolor": "",
+        "animate": false,
+        "className": "",
+        "x": 80,
+        "y": 700,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "86f8b5bfd2918538",
+        "type": "ui_switch",
+        "z": "5215a53f3ed2c38c",
+        "name": "",
+        "label": "2층 전등",
+        "tooltip": "",
+        "group": "ac33bc3d5f3026ee",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "decouple": "false",
+        "topic": "topic",
+        "topicType": "msg",
+        "style": "",
+        "onvalue": "true",
+        "onvalueType": "bool",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "false",
+        "offvalueType": "bool",
+        "officon": "",
+        "offcolor": "",
+        "animate": false,
+        "className": "",
+        "x": 80,
+        "y": 660,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "ec2147a9cb73c924",
+        "type": "tcp request",
+        "z": "5215a53f3ed2c38c",
+        "name": "",
+        "server": "10.10.52.212",
+        "port": "5000",
+        "out": "sit",
+        "ret": "string",
+        "splitc": " ",
+        "newline": "'\\n'",
+        "trim": false,
+        "tls": "",
+        "x": 500,
+        "y": 520,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "38ab6ad37f71c31c",
+        "type": "inject",
+        "z": "5215a53f3ed2c38c",
+        "name": "접속[14]",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "[14:PASSWD]",
+        "payloadType": "str",
+        "x": 100,
+        "y": 440,
+        "wires": [
+            [
+                "e15c24c84c8c7fde"
+            ]
+        ]
+    },
+    {
+        "id": "209413914ba28c2c",
+        "type": "ui_text",
+        "z": "5215a53f3ed2c38c",
+        "group": "2f0ce85eaf3b8d5a",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "요금",
+        "format": "{{msg.payload[0].money}}원",
+        "layout": "row-spread",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#000000",
+        "x": 590,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "a860499d8f540ee0",
+        "type": "ui_text",
+        "z": "5215a53f3ed2c38c",
+        "group": "2f0ce85eaf3b8d5a",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "차량번호",
+        "format": "{{msg.payload[0].carnum}}",
+        "layout": "row-spread",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#000000",
+        "x": 600,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "1fb4faf0dfc5d270",
+        "type": "ui_led",
+        "z": "5215a53f3ed2c38c",
+        "order": 5,
+        "group": "f85fd5d4d43cb6af",
+        "width": 0,
+        "height": 0,
+        "label": "2F5S",
+        "labelPlacement": "left",
+        "labelAlignment": "left",
+        "colorForValue": [
+            {
+                "color": "#ff0000",
+                "value": "false",
+                "valueType": "bool"
+            },
+            {
+                "color": "#008000",
+                "value": "true",
+                "valueType": "bool"
+            }
+        ],
+        "allowColorForValueInMessage": false,
+        "shape": "square",
+        "showGlow": true,
+        "name": "",
+        "x": 1090,
+        "y": 720,
+        "wires": []
+    },
+    {
+        "id": "b0b1171715843dfb",
+        "type": "ui_led",
+        "z": "5215a53f3ed2c38c",
+        "order": 6,
+        "group": "f85fd5d4d43cb6af",
+        "width": 0,
+        "height": 0,
+        "label": "2F6S",
+        "labelPlacement": "left",
+        "labelAlignment": "left",
+        "colorForValue": [
+            {
+                "color": "#ff0000",
+                "value": "false",
+                "valueType": "bool"
+            },
+            {
+                "color": "#008000",
+                "value": "true",
+                "valueType": "bool"
+            }
+        ],
+        "allowColorForValueInMessage": false,
+        "shape": "square",
+        "showGlow": true,
+        "name": "",
+        "x": 1090,
+        "y": 760,
+        "wires": []
+    },
+    {
+        "id": "3dae1343f5cb2083",
+        "type": "ui_led",
+        "z": "5215a53f3ed2c38c",
+        "order": 4,
+        "group": "f85fd5d4d43cb6af",
+        "width": 0,
+        "height": 0,
+        "label": "2F3S",
+        "labelPlacement": "left",
+        "labelAlignment": "left",
+        "colorForValue": [
+            {
+                "color": "#ff0000",
+                "value": "false",
+                "valueType": "bool"
+            },
+            {
+                "color": "#008000",
+                "value": "true",
+                "valueType": "bool"
+            }
+        ],
+        "allowColorForValueInMessage": false,
+        "shape": "square",
+        "showGlow": true,
+        "name": "",
+        "x": 1090,
+        "y": 640,
+        "wires": []
+    },
+    {
+        "id": "d1666ba745b12b3d",
+        "type": "ui_led",
+        "z": "5215a53f3ed2c38c",
+        "order": 3,
+        "group": "f85fd5d4d43cb6af",
+        "width": 0,
+        "height": 0,
+        "label": "2F4S",
+        "labelPlacement": "left",
+        "labelAlignment": "left",
+        "colorForValue": [
+            {
+                "color": "#ff0000",
+                "value": "false",
+                "valueType": "bool"
+            },
+            {
+                "color": "#008000",
+                "value": "true",
+                "valueType": "bool"
+            }
+        ],
+        "allowColorForValueInMessage": false,
+        "shape": "square",
+        "showGlow": true,
+        "name": "",
+        "x": 1090,
+        "y": 680,
+        "wires": []
+    },
+    {
+        "id": "e8d2d2cf9a2d6e09",
+        "type": "ui_led",
+        "z": "5215a53f3ed2c38c",
+        "order": 1,
+        "group": "f85fd5d4d43cb6af",
+        "width": 0,
+        "height": 0,
+        "label": "2F1S",
+        "labelPlacement": "left",
+        "labelAlignment": "left",
+        "colorForValue": [
+            {
+                "color": "#ff0000",
+                "value": "false",
+                "valueType": "bool"
+            },
+            {
+                "color": "#008000",
+                "value": "true",
+                "valueType": "bool"
+            }
+        ],
+        "allowColorForValueInMessage": false,
+        "shape": "square",
+        "showGlow": true,
+        "name": "",
+        "x": 1090,
+        "y": 560,
+        "wires": []
+    },
+    {
+        "id": "72f97137d8a18a4e",
+        "type": "ui_led",
+        "z": "5215a53f3ed2c38c",
+        "order": 2,
+        "group": "f85fd5d4d43cb6af",
+        "width": 0,
+        "height": 0,
+        "label": "2F2S",
+        "labelPlacement": "left",
+        "labelAlignment": "left",
+        "colorForValue": [
+            {
+                "color": "#ff0000",
+                "value": "false",
+                "valueType": "bool"
+            },
+            {
+                "color": "#008000",
+                "value": "true",
+                "valueType": "bool"
+            }
+        ],
+        "allowColorForValueInMessage": false,
+        "shape": "square",
+        "showGlow": true,
+        "name": "",
+        "x": 1090,
+        "y": 600,
+        "wires": []
+    },
+    {
+        "id": "026563a384087d19",
+        "type": "ui_text",
+        "z": "5215a53f3ed2c38c",
+        "group": "2f0ce85eaf3b8d5a",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "입차시간",
+        "format": "{{msg.payload[0].time}}",
+        "layout": "row-spread",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#000000",
+        "x": 600,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "0ef6344826e46c25",
+        "type": "ui_switch",
+        "z": "5215a53f3ed2c38c",
+        "name": "",
+        "label": "차단기동작",
+        "tooltip": "",
+        "group": "ac33bc3d5f3026ee",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "decouple": "false",
+        "topic": "topic",
+        "topicType": "msg",
+        "style": "",
+        "onvalue": "[ALLMSG]SET@ON",
+        "onvalueType": "str",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "[ALLMSG]SET@OFF",
+        "offvalueType": "str",
+        "officon": "",
+        "offcolor": "",
+        "animate": false,
+        "className": "",
+        "x": 90,
+        "y": 560,
+        "wires": [
+            [
+                "ec2147a9cb73c924"
+            ]
+        ]
+    },
+    {
+        "id": "a68bba3b11da007a",
+        "type": "inject",
+        "z": "5215a53f3ed2c38c",
+        "name": "주차차면정보",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "1",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "select * from place;",
+        "payload": "",
+        "payloadType": "str",
+        "x": 200,
+        "y": 40,
+        "wires": [
+            [
+                "a64713dad3ff3ec9"
+            ]
+        ]
+    },
+    {
+        "id": "a64713dad3ff3ec9",
+        "type": "mysql",
+        "z": "5215a53f3ed2c38c",
+        "mydb": "5263d60cf09ce5fc",
+        "name": "",
+        "x": 410,
+        "y": 40,
+        "wires": [
+            [
+                "f08307eda8615969",
+                "0819e0700fd4b794",
+                "4d8087fd15bde301",
+                "cfaed975306645da",
+                "0391d56bf30839e0",
+                "1ec48dbc3da897b8"
+            ]
+        ]
+    },
+    {
+        "id": "caf9cd352eebdd0e",
+        "type": "ui_gauge",
+        "z": "5215a53f3ed2c38c",
+        "name": "",
+        "group": "ac33bc3d5f3026ee",
+        "order": 4,
+        "width": "4",
+        "height": "3",
+        "gtype": "gage",
+        "title": "1층  fan ",
+        "label": "units",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "10",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "diff": false,
+        "className": "",
+        "x": 260,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "e4500abe3146d8c4",
+        "type": "ui_numeric",
+        "z": "5215a53f3ed2c38c",
+        "name": "",
+        "label": "",
+        "tooltip": "",
+        "group": "ac33bc3d5f3026ee",
+        "order": 5,
+        "width": "2",
+        "height": "3",
+        "wrap": false,
+        "passthru": true,
+        "topic": "topic",
+        "topicType": "msg",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "10",
+        "step": 1,
+        "className": "",
+        "x": 100,
+        "y": 320,
+        "wires": [
+            [
+                "caf9cd352eebdd0e",
+                "801ba87bbccf7e11"
+            ]
+        ]
+    },
+    {
+        "id": "3d7ffdc8fe0bae37",
+        "type": "ui_gauge",
+        "z": "5215a53f3ed2c38c",
+        "name": "",
+        "group": "ac33bc3d5f3026ee",
+        "order": 6,
+        "width": "4",
+        "height": "3",
+        "gtype": "gage",
+        "title": "2층  fan ",
+        "label": "units",
+        "format": "{{value}}0%",
+        "min": 0,
+        "max": "10",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "diff": false,
+        "className": "",
+        "x": 660,
+        "y": 440,
+        "wires": []
+    },
+    {
+        "id": "3720185549ba3fbc",
+        "type": "ui_numeric",
+        "z": "5215a53f3ed2c38c",
+        "name": "",
+        "label": "",
+        "tooltip": "",
+        "group": "ac33bc3d5f3026ee",
+        "order": 7,
+        "width": "2",
+        "height": "3",
+        "wrap": false,
+        "passthru": true,
+        "topic": "topic",
+        "topicType": "msg",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "10",
+        "step": 1,
+        "className": "",
+        "x": 480,
+        "y": 440,
+        "wires": [
+            [
+                "3d7ffdc8fe0bae37"
+            ]
+        ]
+    },
+    {
+        "id": "801ba87bbccf7e11",
+        "type": "function",
+        "z": "5215a53f3ed2c38c",
+        "name": "function 1",
+        "func": "msg.payload = ((msg.payload)*255)/10\n\nmsg.payload= \"[aduino1]MOTOR@ON@\"+msg.payload+'\\n'\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 300,
+        "y": 380,
+        "wires": [
+            [
+                "ec2147a9cb73c924"
+            ]
+        ]
+    },
+    {
+        "id": "3de225074fd36dbf",
+        "type": "inject",
+        "z": "5215a53f3ed2c38c",
+        "name": "자동차 정보 요청(1초마다)",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "[parking_db]CAR@",
+        "payloadType": "str",
+        "x": 130,
+        "y": 400,
+        "wires": [
+            [
+                "e15c24c84c8c7fde"
+            ]
+        ]
+    },
+    {
+        "id": "e15c24c84c8c7fde",
+        "type": "function",
+        "z": "5215a53f3ed2c38c",
+        "name": "function 2",
+        "func": "msg.payload = msg.payload + '\\n'\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 280,
+        "y": 440,
+        "wires": [
+            [
+                "ec2147a9cb73c924"
+            ]
+        ]
+    },
+    {
+        "id": "a3ce635320546372",
+        "type": "function",
+        "z": "5215a53f3ed2c38c",
+        "name": "function 3",
+        "func": "msg.payload = msg.topic + msg.payload;\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 820,
+        "y": 640,
+        "wires": [
+            [
+                "e15c24c84c8c7fde"
+            ]
+        ]
+    },
+    {
+        "id": "4052e2460bbb5c32",
+        "type": "ui_slider",
+        "z": "5215a53f3ed2c38c",
+        "name": "",
+        "label": "작동온도",
+        "tooltip": "",
+        "group": "ac33bc3d5f3026ee",
+        "order": 10,
+        "width": "5",
+        "height": "2",
+        "passthru": true,
+        "outs": "all",
+        "topic": "[ALLMSG]temp@",
+        "topicType": "str",
+        "min": "-5",
+        "max": "35",
+        "step": 1,
+        "className": "",
+        "x": 440,
+        "y": 660,
+        "wires": [
+            [
+                "a3ce635320546372",
+                "1e011290bb4230a1"
+            ]
+        ]
+    },
+    {
+        "id": "1e011290bb4230a1",
+        "type": "ui_text",
+        "z": "5215a53f3ed2c38c",
+        "group": "ac33bc3d5f3026ee",
+        "order": 10,
+        "width": "1",
+        "height": "2",
+        "name": "",
+        "label": "",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#000000",
+        "x": 590,
+        "y": 580,
+        "wires": []
+    },
+    {
+        "id": "1d868451b27907e6",
+        "type": "ui_slider",
+        "z": "5215a53f3ed2c38c",
+        "name": "",
+        "label": "작동습도",
+        "tooltip": "",
+        "group": "ac33bc3d5f3026ee",
+        "order": 10,
+        "width": "5",
+        "height": "2",
+        "passthru": true,
+        "outs": "all",
+        "topic": "[ALLMSG]humi@",
+        "topicType": "str",
+        "min": "0",
+        "max": "50",
+        "step": 1,
+        "className": "",
+        "x": 440,
+        "y": 720,
+        "wires": [
+            [
+                "a3ce635320546372",
+                "8c4774e756eac8c7"
+            ]
+        ]
+    },
+    {
+        "id": "c0938fae55400028",
+        "type": "ui_slider",
+        "z": "5215a53f3ed2c38c",
+        "name": "",
+        "label": "작동조도",
+        "tooltip": "",
+        "group": "ac33bc3d5f3026ee",
+        "order": 10,
+        "width": "5",
+        "height": "2",
+        "passthru": true,
+        "outs": "all",
+        "topic": "[ALLMSG]illu@",
+        "topicType": "str",
+        "min": "0",
+        "max": "50",
+        "step": 1,
+        "className": "",
+        "x": 440,
+        "y": 800,
+        "wires": [
+            [
+                "a3ce635320546372",
+                "034437f9dd63d43a"
+            ]
+        ]
+    },
+    {
+        "id": "8c4774e756eac8c7",
+        "type": "ui_text",
+        "z": "5215a53f3ed2c38c",
+        "group": "ac33bc3d5f3026ee",
+        "order": 10,
+        "width": "1",
+        "height": "2",
+        "name": "",
+        "label": "",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#000000",
+        "x": 590,
+        "y": 660,
+        "wires": []
+    },
+    {
+        "id": "034437f9dd63d43a",
+        "type": "ui_text",
+        "z": "5215a53f3ed2c38c",
+        "group": "ac33bc3d5f3026ee",
+        "order": 10,
+        "width": "1",
+        "height": "2",
+        "name": "",
+        "label": "",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#000000",
+        "x": 710,
+        "y": 700,
+        "wires": []
+    },
+    {
+        "id": "5dd1321b64e87c41",
+        "type": "inject",
+        "z": "5215a53f3ed2c38c",
+        "name": "접속[14]",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "[14:PASSWD]",
+        "payloadType": "str",
+        "x": 80,
+        "y": 780,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "1ec48dbc3da897b8",
+        "type": "function",
+        "z": "5215a53f3ed2c38c",
+        "name": "function 4",
+        "func": "if(msg.payload[0].value==1)\n    msg.payload = true;\n    else msg.payload = false;\n    \nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 860,
+        "y": 20,
+        "wires": [
+            [
+                "88cf49438720324b"
+            ]
+        ]
+    },
+    {
+        "id": "f08307eda8615969",
+        "type": "function",
+        "z": "5215a53f3ed2c38c",
+        "name": "function 5",
+        "func": "if(msg.payload[1].value==1)\n    msg.payload = true;\n    else msg.payload = false;\n    \nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 860,
+        "y": 60,
+        "wires": [
+            [
+                "1502b6d601ac2f39"
+            ]
+        ]
+    },
+    {
+        "id": "0819e0700fd4b794",
+        "type": "function",
+        "z": "5215a53f3ed2c38c",
+        "name": "function 6",
+        "func": "if(msg.payload[2].value==\"1\")\n    msg.payload = true;\n    else msg.payload = false;\n    \nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 860,
+        "y": 100,
+        "wires": [
+            [
+                "36e9868ef8654ddf"
+            ]
+        ]
+    },
+    {
+        "id": "4d8087fd15bde301",
+        "type": "function",
+        "z": "5215a53f3ed2c38c",
+        "name": "function 7",
+        "func": "if(msg.payload[3].value==\"1\")\n    msg.payload = true;\n    else msg.payload = false;\n    \nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 860,
+        "y": 140,
+        "wires": [
+            [
+                "666c76e16a3735d6"
+            ]
+        ]
+    },
+    {
+        "id": "cfaed975306645da",
+        "type": "function",
+        "z": "5215a53f3ed2c38c",
+        "name": "function 8",
+        "func": "if(msg.payload[4].value==\"1\")\n    msg.payload = true;\n    else msg.payload = false;\n    \nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 860,
+        "y": 180,
+        "wires": [
+            [
+                "624a21dad70cbf71"
+            ]
+        ]
+    },
+    {
+        "id": "0391d56bf30839e0",
+        "type": "function",
+        "z": "5215a53f3ed2c38c",
+        "name": "function 9",
+        "func": "if(msg.payload[5].value==\"1\")\n    msg.payload = true;\n    else msg.payload = false;\n    \nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 860,
+        "y": 220,
+        "wires": [
+            [
+                "a6b58916f53f7cc4"
+            ]
+        ]
+    },
+    {
+        "id": "60caa591feff2a0d",
+        "type": "ui_text",
+        "z": "5215a53f3ed2c38c",
+        "group": "2f0ce85eaf3b8d5a",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "출차시간",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "style": true,
+        "font": "",
+        "fontSize": 16,
+        "color": "#000000",
+        "x": 600,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "01664e210637de4e",
+        "type": "inject",
+        "z": "5215a53f3ed2c38c",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "1",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 190,
+        "y": 120,
+        "wires": [
+            [
+                "bd5e7668900b760c"
+            ]
+        ]
+    },
+    {
+        "id": "bd5e7668900b760c",
+        "type": "function",
+        "z": "5215a53f3ed2c38c",
+        "name": "function 10",
+        "func": "var time= new Date(msg.payload)\nvar temp =time.toTimeString()\n\nmsg.payload = temp\n\n\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 390,
+        "y": 120,
+        "wires": [
+            [
+                "60caa591feff2a0d"
+            ]
+        ]
+    },
+    {
+        "id": "925a89290e379ee3",
+        "type": "inject",
+        "z": "5215a53f3ed2c38c",
+        "name": "출차차량",
+        "props": [
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "select * from car where num = 2;",
+        "x": 200,
+        "y": 160,
+        "wires": [
+            [
+                "d5e7c4f9a8d1bdeb"
+            ]
+        ]
+    },
+    {
+        "id": "d5e7c4f9a8d1bdeb",
+        "type": "mysql",
+        "z": "5215a53f3ed2c38c",
+        "mydb": "5263d60cf09ce5fc",
+        "name": "",
+        "x": 390,
+        "y": 160,
+        "wires": [
+            [
+                "209413914ba28c2c",
+                "60caa591feff2a0d",
+                "026563a384087d19",
+                "a860499d8f540ee0"
+            ]
+        ]
+    },
+    {
+        "id": "88cf49438720324b",
+        "type": "ui_led",
+        "z": "5215a53f3ed2c38c",
+        "order": 1,
+        "group": "6f3adc65bce5910a",
+        "width": "3",
+        "height": "1",
+        "label": "1F11",
+        "labelPlacement": "left",
+        "labelAlignment": "left",
+        "colorForValue": [
+            {
+                "color": "#008000",
+                "value": "true",
+                "valueType": "bool"
+            },
+            {
+                "color": "#ff0000",
+                "value": "false",
+                "valueType": "bool"
+            }
+        ],
+        "allowColorForValueInMessage": false,
+        "shape": "square",
+        "showGlow": true,
+        "name": "",
+        "x": 1090,
+        "y": 20,
+        "wires": []
+    },
+    {
+        "id": "5580289e463c20cc",
+        "type": "ui_chart",
+        "z": "5215a53f3ed2c38c",
+        "name": "",
+        "group": "3a1f87fdcd9f9019",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "label": "조도 그래프",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": true,
+        "ymin": "20",
+        "ymax": "40",
+        "removeOlder": "20",
+        "removeOlderPoints": "",
+        "removeOlderUnit": "1",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 810,
+        "y": 280,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "ef5080e1b6645d32",
+        "type": "mysql",
+        "z": "5215a53f3ed2c38c",
+        "mydb": "5263d60cf09ce5fc",
+        "name": "",
+        "x": 250,
+        "y": 260,
+        "wires": [
+            [
+                "9dc2773b52bb649f",
+                "8e2469afbf78cbc7",
+                "715c84f0e76b3a72"
+            ]
+        ]
+    },
+    {
+        "id": "2eaa0995072dc547",
+        "type": "inject",
+        "z": "5215a53f3ed2c38c",
+        "name": "온습도조도표시",
+        "props": [
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "select * from sensor where name = \"aduino1\"",
+        "x": 120,
+        "y": 220,
+        "wires": [
+            [
+                "ef5080e1b6645d32"
+            ]
+        ]
+    },
+    {
+        "id": "9dc2773b52bb649f",
+        "type": "function",
+        "z": "5215a53f3ed2c38c",
+        "name": "function 11",
+        "func": "var i;\nfor(i=0; i<msg.payload.length ; i++){\n    node.send({payload:msg.payload[i].illu})\n}\n    return [msg]\n    \n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 450,
+        "y": 260,
+        "wires": [
+            [
+                "1609f7db81a54285"
+            ]
+        ]
+    },
+    {
+        "id": "778284ff.6ef43c",
+        "type": "subflow:377856fa.64711a",
+        "z": "5215a53f3ed2c38c",
+        "name": "Iterate",
+        "env": [],
+        "x": 610,
+        "y": 1140,
+        "wires": [
+            [
+                "43734aad.548f44"
+            ],
+            [
+                "d312fa83.359958"
+            ]
+        ]
+    },
+    {
+        "id": "54bb5e1e.2bb9f",
+        "type": "inject",
+        "z": "5215a53f3ed2c38c",
+        "name": "",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 312.0659828186035,
+        "y": 1143.8333773612976,
+        "wires": [
+            [
+                "c62dbbca.62b388"
+            ]
+        ]
+    },
+    {
+        "id": "c62dbbca.62b388",
+        "type": "function",
+        "z": "5215a53f3ed2c38c",
+        "name": "¹è¿­",
+        "func": "var newMsg={};\nnewMsg.payload=[1,2,3,4,5];\nreturn newMsg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 451.0556297302246,
+        "y": 1142.625024318695,
+        "wires": [
+            [
+                "778284ff.6ef43c",
+                "7b2d05d7.1eceac"
+            ]
+        ]
+    },
+    {
+        "id": "d312fa83.359958",
+        "type": "debug",
+        "z": "5215a53f3ed2c38c",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 787.0659790039062,
+        "y": 1146.982691526413,
+        "wires": []
+    },
+    {
+        "id": "43734aad.548f44",
+        "type": "function",
+        "z": "5215a53f3ed2c38c",
+        "name": "",
+        "func": "msg.payload += 5;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 611.065975189209,
+        "y": 1070.6180701255798,
+        "wires": [
+            [
+                "778284ff.6ef43c"
+            ]
+        ]
+    },
+    {
+        "id": "7b2d05d7.1eceac",
+        "type": "function",
+        "z": "5215a53f3ed2c38c",
+        "name": "for ¹®",
+        "func": "var i;\nfor(i=0; i<msg.payload.length ; i++)\n    msg.payload[i] = i+5;\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 614.0556221008301,
+        "y": 1197.6285529136658,
+        "wires": [
+            [
+                "f75d9d9e.104"
+            ]
+        ]
+    },
+    {
+        "id": "f75d9d9e.104",
+        "type": "debug",
+        "z": "5215a53f3ed2c38c",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 777.0555839538574,
+        "y": 1196.9930834770203,
+        "wires": []
+    },
+    {
+        "id": "1609f7db81a54285",
+        "type": "delay",
+        "z": "5215a53f3ed2c38c",
+        "name": "",
+        "pauseType": "rate",
+        "timeout": "1",
+        "timeoutUnits": "seconds",
+        "rate": "2",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 630,
+        "y": 260,
+        "wires": [
+            [
+                "5580289e463c20cc"
+            ]
+        ]
+    },
+    {
+        "id": "8e2469afbf78cbc7",
+        "type": "function",
+        "z": "5215a53f3ed2c38c",
+        "name": "function 12",
+        "func": "var i;\nfor(i=0; i<msg.payload.length ; i++){\n    node.send({payload:msg.payload[i].temp})\n}\n    return [msg]\n    \n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 450,
+        "y": 300,
+        "wires": [
+            [
+                "8a0b910e4127fb65"
+            ]
+        ]
+    },
+    {
+        "id": "8a0b910e4127fb65",
+        "type": "delay",
+        "z": "5215a53f3ed2c38c",
+        "name": "",
+        "pauseType": "rate",
+        "timeout": "1",
+        "timeoutUnits": "seconds",
+        "rate": "2",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 630,
+        "y": 300,
+        "wires": [
+            [
+                "5ba7f898290adb68"
+            ]
+        ]
+    },
+    {
+        "id": "715c84f0e76b3a72",
+        "type": "function",
+        "z": "5215a53f3ed2c38c",
+        "name": "function 13",
+        "func": "var i;\nfor(i=0; i<msg.payload.length ; i++){\n    node.send({payload:msg.payload[i].humi})\n}\n    return [msg]\n    \n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 450,
+        "y": 340,
+        "wires": [
+            [
+                "5b95cb8549e6255e"
+            ]
+        ]
+    },
+    {
+        "id": "5b95cb8549e6255e",
+        "type": "delay",
+        "z": "5215a53f3ed2c38c",
+        "name": "",
+        "pauseType": "rate",
+        "timeout": "1",
+        "timeoutUnits": "seconds",
+        "rate": "2",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 630,
+        "y": 340,
+        "wires": [
+            [
+                "154d2e7c02b42a1b"
+            ]
+        ]
+    },
+    {
+        "id": "5ba7f898290adb68",
+        "type": "ui_chart",
+        "z": "5215a53f3ed2c38c",
+        "name": "",
+        "group": "3a1f87fdcd9f9019",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "label": "온도 그래프",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": true,
+        "ymin": "0",
+        "ymax": "40",
+        "removeOlder": "20",
+        "removeOlderPoints": "",
+        "removeOlderUnit": "1",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 810,
+        "y": 320,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "154d2e7c02b42a1b",
+        "type": "ui_chart",
+        "z": "5215a53f3ed2c38c",
+        "name": "",
+        "group": "3a1f87fdcd9f9019",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "label": "습도 그래프",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": true,
+        "ymin": "20",
+        "ymax": "80",
+        "removeOlder": "20",
+        "removeOlderPoints": "",
+        "removeOlderUnit": "1",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 810,
+        "y": 360,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "6f3adc65bce5910a",
+        "type": "ui_group",
+        "name": "1층 주차장",
+        "tab": "a92ebaa8702da46c",
+        "order": 2,
+        "disp": true,
+        "width": "3",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "88079e3ea8537594",
+        "type": "ui_group",
+        "name": "2층 주차장",
+        "tab": "a92ebaa8702da46c",
+        "order": 3,
+        "disp": true,
+        "width": "3",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "ac33bc3d5f3026ee",
+        "type": "ui_group",
+        "name": "주차장 조작반",
+        "tab": "a92ebaa8702da46c",
+        "order": 6,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "2f0ce85eaf3b8d5a",
+        "type": "ui_group",
+        "name": "안내",
+        "tab": "a92ebaa8702da46c",
+        "order": 1,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "f85fd5d4d43cb6af",
+        "type": "ui_group",
+        "name": "3층 주차장",
+        "tab": "a92ebaa8702da46c",
+        "order": 4,
+        "disp": true,
+        "width": "3",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "5263d60cf09ce5fc",
+        "type": "MySQLdatabase",
+        "name": "과제db 연결",
+        "host": "10.10.52.182",
+        "port": "3306",
+        "db": "parking",
+        "tz": "",
+        "charset": "UTF8"
+    },
+    {
+        "id": "3a1f87fdcd9f9019",
+        "type": "ui_group",
+        "name": "주차장 온도 습도 조도",
+        "tab": "a92ebaa8702da46c",
+        "order": 5,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "a92ebaa8702da46c",
+        "type": "ui_tab",
+        "name": "경기 인력개발원 주차장 현황판",
+        "icon": "dashboard",
+        "order": 1,
+        "disabled": false,
+        "hidden": false
+    }
+]
